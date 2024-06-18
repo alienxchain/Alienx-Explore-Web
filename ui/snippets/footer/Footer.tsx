@@ -120,17 +120,19 @@ const Footer = () => {
       <Box gridArea={ gridArea }>
         <Link fontSize="xs" href="https://www.blockscout.com">blockscout.com</Link>
         <Text mt={ 3 } fontSize="xs">
-          Blockscout is a tool for inspecting and analyzing EVM based blockchains. Blockchain explorer for Ethereum Networks.
+                Blockscout is a tool for inspecting and analyzing EVM based blockchains. Blockchain explorer for
+                Ethereum Networks.
         </Text>
         <VStack spacing={ 1 } mt={ 6 } alignItems="start">
           { apiVersionUrl && (
             <Text fontSize="xs">
-              Backend: <Link href={ apiVersionUrl } target="_blank">{ backendVersionData?.backend_version }</Link>
+                          Backend: <Link href={ apiVersionUrl }
+                target="_blank">{ backendVersionData?.backend_version }</Link>
             </Text>
           ) }
           { frontendLink && (
             <Text fontSize="xs">
-              Frontend: { frontendLink }
+                          Frontend: { frontendLink }
             </Text>
           ) }
         </VStack>
@@ -150,39 +152,48 @@ const Footer = () => {
 
   if (config.UI.footer.links) {
     return (
-      <Grid { ...containerProps }>
-        <div>
-          { renderNetworkInfo() }
-          { renderProjectInfo() }
-        </div>
+      <>
+        <Grid { ...containerProps }>
+          <div>
+            { renderNetworkInfo() }
+            { /*{ renderProjectInfo() }*/ }
+          </div>
 
-        <Grid
-          gap={{ base: 6, lg: colNum === MAX_LINKS_COLUMNS + 1 ? 2 : 8, xl: 12 }}
-          gridTemplateColumns={{
-            base: 'repeat(auto-fill, 160px)',
-            lg: `repeat(${ colNum }, 135px)`,
-            xl: `repeat(${ colNum }, 160px)`,
-          }}
-          justifyContent={{ lg: 'flex-end' }}
-          mt={{ base: 8, lg: 0 }}
-        >
-          {
-            ([
-              { title: 'Blockscout', links: BLOCKSCOUT_LINKS },
-              ...(linksData || []),
-            ])
-              .slice(0, colNum)
-              .map(linkGroup => (
-                <Box key={ linkGroup.title }>
-                  <Skeleton fontWeight={ 500 } mb={ 3 } display="inline-block" isLoaded={ !isPlaceholderData }>{ linkGroup.title }</Skeleton>
-                  <VStack spacing={ 1 } alignItems="start">
-                    { linkGroup.links.map(link => <FooterLinkItem { ...link } key={ link.text } isLoading={ isPlaceholderData }/>) }
-                  </VStack>
-                </Box>
-              ))
-          }
+          <Grid
+            gap={{ base: 6, lg: colNum === MAX_LINKS_COLUMNS + 1 ? 2 : 8, xl: 12 }}
+            gridTemplateColumns={{
+              base: 'repeat(auto-fill, 160px)',
+              lg: `repeat(${ colNum }, 135px)`,
+              xl: `repeat(${ colNum }, 160px)`,
+            }}
+            justifyContent={{ lg: 'flex-end' }}
+            mt={{ base: 8, lg: 0 }}
+          >
+            {
+              ([
+                // { title: 'Blockscout', links: BLOCKSCOUT_LINKS },
+                ...(linksData || []),
+              ])
+                .slice(0, colNum)
+                .map(linkGroup => (
+                  <Box key={ linkGroup.title }>
+                    <Skeleton fontWeight={ 500 } mb={ 3 } display="inline-block"
+                      isLoaded={ !isPlaceholderData }>{ linkGroup.title }</Skeleton>
+                    <VStack spacing={ 1 } alignItems="start">
+                      { linkGroup.links.map(link => (
+                        <FooterLinkItem { ...link } key={ link.text }
+                          isLoading={ isPlaceholderData }/>
+                      )) }
+                    </VStack>
+                  </Box>
+                ))
+            }
+          </Grid>
         </Grid>
-      </Grid>
+        <div style={{ textAlign: 'center', fontSize: 12, marginTop: 20, color: '#ccc' }}>
+          Power by  <Link fontSize="xs" color="#ccc" href="https://www.blockscout.com">blockscout.com</Link>
+        </div>
+      </>
     );
   }
 
